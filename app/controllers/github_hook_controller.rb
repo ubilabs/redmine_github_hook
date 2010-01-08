@@ -9,7 +9,7 @@ class GithubHookController < ApplicationController
     Repository.all.each do |repository|
       if repository.is_a?(Repository::Git)
         puts repository.url
-        command = "cd '#{repository.url}' && git pull"
+        command = "cd '#{repository.url}/../' && git pull"
         exec(command)
       end
     end
