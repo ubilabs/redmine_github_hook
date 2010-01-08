@@ -11,9 +11,9 @@ class GithubHookController < ApplicationController
         puts repository.url
         command = "cd '#{repository.url}' && git pull"
         exec(command)
-        repository.fetch_changesets
       end
     end
+    Repository.fetch_changesets
     render(:text => 'OK')
   end
 
