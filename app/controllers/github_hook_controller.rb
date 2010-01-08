@@ -12,14 +12,11 @@ class GithubHookController < ApplicationController
     Repository.all.each do |repository|
       if repository.is_a?(Repository::Git)
         puts repository.url
-        command = "cd '#{repository.url}' && git fetch origin && git reset --soft refs/remotes/origin/master"
+        command = "cd '#{repository.url}' && git pull"
         exec(command)
+        repository.fetch_changesets
       end
     end
-    
-    # Fetch the new changesets into Redmine
-    repository.fetch_changesets
-
     render(:text => 'OK')
   end
 
